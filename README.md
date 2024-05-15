@@ -17,26 +17,6 @@ StockGuard is a Python application designed to manage and analyze stock data. It
 - `main.py`: The main entry point for the application.
 - `utils.py`: Contains utility functions.
 
-## Installation
-
-1. Clone the repository:
-    ```bash
-    git clone https://github.com/KostasTechie/StockGuard.git
-    ```
-2. Navigate to the project directory:
-    ```bash
-    cd StockGuard
-    ```
-3. Create a virtual environment and activate it:
-    ```bash
-    python -m venv venv
-    source venv/bin/activate   # On Windows use `venv\Scripts\activate`
-    ```
-4. Install the required dependencies (create a `requirements.txt` if necessary):
-    ```bash
-    pip install -r requirements.txt
-    ```
-
 ## Usage
 
 Run the application using:
