@@ -2,7 +2,7 @@ import customtkinter as ctk
 from tkinter import Menu
 from gui import create_main_frame, load_locations, load_products
 from data_manager import load_data
-from handlers import select_user, open_settings, show_about
+from handlers import select_user, open_settings, show_about, create_backup, restore_backup, add_location, delete_location
 
 # Load existing data
 data = load_data()
@@ -38,8 +38,8 @@ file_menu.add_command(label="Exit", command=root.quit)
 # Create Location menu
 location_menu = Menu(menu_bar, tearoff=0)
 menu_bar.add_cascade(label="Location", menu=location_menu)
-location_menu.add_command(label="Add Location", command=add_location)
-location_menu.add_command(label="Delete Location", command=delete_location)
+location_menu.add_command(label="Add Location", command=lambda: add_location(data))
+location_menu.add_command(label="Delete Location", command=lambda: delete_location(data))
 
 # Create Help menu
 help_menu = Menu(menu_bar, tearoff=0)
