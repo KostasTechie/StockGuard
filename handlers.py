@@ -1,7 +1,34 @@
 import customtkinter as ctk
 from tkinter import simpledialog, messagebox, filedialog, Toplevel, StringVar
-from data_manager import save_data
+from data_manager import save_data, load_data
 from datetime import datetime
+import shutil
+from constants import DATA_FILE, BACKUP_FOLDER
+
+# Define global variables
+current_user = None
+tree = None
+context_menu = None
+
+def create_backup():
+    if not os.path.exists(BACKUP_FOLDER):
+        os.makedirs(BACKUP_FOLDER)
+    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+    backup_file = os.path.join(BACKUP_FOLDER, f'warehouse_backup_{timestamp}.json')
+    shutil.copy(DATA_FILE, backup_file)
+    messagebox.showinfo("Backup", f"Backup created successfully at {backup_file}")
+
+def restore_backup():
+    backup_file = filedialog.askopenfilename(initialdir=BACKUP_FOLDER, title="Select backup file", filetypes=(("JSON files", "*.json"),))
+    if backup_file:
+        shutil.copy(backup_file, DATA_FILE)
+        global data
+        data = load_data()
+        load_products(data)
+        load_locations(data)
+        messagebox.showinfo("Restore", "Data restored successfully")
+
+# Other functions from previous `handlers.py`
 
 def select_user(root):
     users = ["Alice", "Bob"]  # Add more users if needed
