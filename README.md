@@ -21,7 +21,7 @@ StockGuard is a Python application designed to manage and analyze stock data. It
 
 Run the application using:
 ```bash
-python main.py
+python3 main.py
 ```
 ## License
 This project is licensed under the MIT License.
