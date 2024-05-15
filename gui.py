@@ -1,8 +1,10 @@
 import customtkinter as ctk
-from tkinter import ttk
+from tkinter import ttk, Menu
 from handlers import add_product, search_product, edit_product, delete_product, show_history, show_context_menu
+from utils import apply_theme_to_treeview, style_theme
 
 def create_main_frame(root, data):
+    global tree, context_menu
     frame = ctk.CTkFrame(root)
     frame.pack(pady=20, padx=20, fill="both", expand=True)
 
@@ -33,7 +35,6 @@ def create_main_frame(root, data):
     btn_search.grid(row=0, column=1, padx=10, pady=10)
 
     # Create treeview
-    global tree
     tree = ttk.Treeview(frame, columns=("ID", "Name", "Quantity", "Location"), show="headings")
     tree.heading("ID", text="ID")
     tree.heading("Name", text="Name")
@@ -45,7 +46,7 @@ def create_main_frame(root, data):
     style = ttk.Style()
     style.theme_use('clam')
     apply_theme_to_treeview()
-    style_theme()
+    style_theme(root)
 
     # Create context menu
     context_menu = Menu(tree, tearoff=0)
@@ -67,15 +68,3 @@ def load_products(data):
     for index, product in enumerate(data["products"]):
         tree.insert("", ctk.END, values=(product["id"], product["name"], product["quantity"], product["location"]),
                     tags=('oddrow' if index % 2 == 0 else 'evenrow',))
-
-def apply_theme_to_treeview():
-    if ctk.get_appearance_mode() == "Light":
-        style.configure("Treeview", background="white", fieldbackground="white", foreground="black")
-        style.configure("Treeview.Heading", background="white", foreground="black")
-    else:
-        style.configure("Treeview", background="#383838", fieldbackground="#383838", foreground="white")
-        style.configure("Treeview.Heading", background="#383838", foreground="white")
-
-def style_theme():
-    root.option_add("*TCombobox*Listbox*Foreground", "black" if ctk.get_appearance_mode() == "Light" else "white")
-    root.option_add("*TCombobox*Listbox*Background", "white" if ctk.get_appearance_mode() == "Light" else "#383838")
